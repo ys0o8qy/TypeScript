@@ -10658,7 +10658,7 @@ const singleLinePragmaRegEx = /^\/\/\/?\s*@([^\s:]+)(.*)\s*$/im;
 function extractPragmas(pragmas: PragmaPseudoMapEntry[], range: CommentRange, text: string) {
     const tripleSlash = range.kind === SyntaxKind.SingleLineCommentTrivia && tripleSlashXMLCommentStartRegEx.exec(text);
     if (tripleSlash) {
-        const name = tripleSlash[1].toLowerCase() as keyof PragmaPseudoMap; // Technically unsafe cast, but we do it so the below check to make it safe typechecks
+        const name = tripleSlash[1].toLowerCase() as string
         const pragma = commentPragmas[name] as PragmaDefinition;
         if (!pragma || !(pragma.kind! & PragmaKindFlags.TripleSlashXML)) {
             return;
