@@ -10052,6 +10052,10 @@ export interface PragmaDefinition<T1 extends string = string, T2 extends string 
     kind?: PragmaKindFlags;
 }
 
+export type CommentPragmaItem = {
+    args: Array<{ name: string; optional?: boolean; captureSpan?: boolean; }>;
+    kind: PragmaKindFlags
+}
 // While not strictly a type, this is here because `PragmaMap` needs to be here to be used with `SourceFile`, and we don't
 //  fancy effectively defining it twice, once in value-space and once in type-space
 /** @internal */
@@ -10155,6 +10159,8 @@ export type ConcretePragmaSpecs = typeof commentPragmas;
 
 /** @internal */
 export type PragmaPseudoMap = { [K in keyof ConcretePragmaSpecs]: { arguments: PragmaArgumentType<K>; range: CommentRange; }; };
+
+export type PragmaPseudoMapValue<K extends keyof PragmaPseudoMap> = { arguments: PragmaArgumentType<K>; range: CommentRange; }
 
 /** @internal */
 export type PragmaPseudoMapEntry = { [K in keyof PragmaPseudoMap]: { name: K; args: PragmaPseudoMap[K]; }; }[keyof PragmaPseudoMap];

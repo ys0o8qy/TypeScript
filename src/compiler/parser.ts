@@ -303,6 +303,7 @@ import {
     PragmaMap,
     PragmaPseudoMap,
     PragmaPseudoMapEntry,
+    PragmaPseudoMapValue,
     PrefixUnaryExpression,
     PrefixUnaryOperator,
     PrimaryExpression,
@@ -10598,7 +10599,7 @@ export function processPragmasIntoFields(context: PragmaContext, reportDiagnosti
             }
             case "amd-dependency": {
                 context.amdDependencies = map(
-                    toArray(entryOrList) as PragmaPseudoMap["amd-dependency"][],
+                    toArray(entryOrList) as PragmaPseudoMapValue<"amd-dependency">[],
                     x => ({ name: x.arguments.name, path: x.arguments.path }),
                 );
                 break;
@@ -10610,11 +10611,11 @@ export function processPragmasIntoFields(context: PragmaContext, reportDiagnosti
                             // TODO: It's probably fine to issue this diagnostic on all instances of the pragma
                             reportDiagnostic(entry.range.pos, entry.range.end - entry.range.pos, Diagnostics.An_AMD_module_cannot_have_multiple_name_assignments);
                         }
-                        context.moduleName = (entry as PragmaPseudoMap["amd-module"]).arguments.name;
+                        context.moduleName = (entry as PragmaPseudoMapValue<"amd-module">).arguments.name;
                     }
                 }
                 else {
-                    context.moduleName = (entryOrList as PragmaPseudoMap["amd-module"]).arguments.name;
+                    context.moduleName = (entryOrList as PragmaPseudoMapValue<"amd-module">).arguments.name;
                 }
                 break;
             }
