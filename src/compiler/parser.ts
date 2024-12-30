@@ -349,6 +349,7 @@ import {
     TaggedTemplateExpression,
     TemplateExpression,
     TemplateHead,
+    TemplateLiteral,
     TemplateLiteralToken,
     TemplateLiteralTypeNode,
     TemplateLiteralTypeSpan,
@@ -6475,12 +6476,17 @@ namespace Parser {
     }
 
     function parseTaggedTemplateRest(pos: number, tag: LeftHandSideExpression, questionDotToken: QuestionDotToken | undefined, typeArguments: NodeArray<TypeNode> | undefined) {
+        let template: TemplateLiteral;
+        if (token() === SyntaxKind.NoSubstitutionTemplateLiteral) {
+            reScanTemplateToken(/*isTaggedTemplate*/ true)
+            template = parseLiteralNode() as NoSubstitutionTemplateLiteral
+        } else {
+            template = parseTemplateExpression(/*isTaggedTemplate*/ true)
+        }
         const tagExpression = factory.createTaggedTemplateExpression(
             tag,
             typeArguments,
-            token() === SyntaxKind.NoSubstitutionTemplateLiteral ?
-                (reScanTemplateToken(/*isTaggedTemplate*/ true), parseLiteralNode() as NoSubstitutionTemplateLiteral) :
-                parseTemplateExpression(/*isTaggedTemplate*/ true),
+            template
         );
         if (questionDotToken || tag.flags & NodeFlags.OptionalChain) {
             (tagExpression as Mutable<Node>).flags |= NodeFlags.OptionalChain;
