@@ -255,6 +255,7 @@ import {
     ModifierFlags,
     ModifierLike,
     modifiersToFlags,
+    ModifierSyntaxKind,
     ModuleBlock,
     ModuleDeclaration,
     ModuleExportName,
@@ -7964,7 +7965,7 @@ namespace Parser {
             }
         }
 
-        return finishNode(factoryCreateToken(kind as Modifier["kind"]), pos);
+        return finishNode(factoryCreateToken(kind as ModifierSyntaxKind), pos);
     }
 
     /*
