@@ -235,6 +235,7 @@ import {
     JsxTagNameExpression,
     JsxText,
     JsxTokenSyntaxKind,
+    KeyOfPragmaPseudoMap,
     LabeledStatement,
     LanguageVariant,
     lastOrUndefined,
@@ -10718,7 +10719,7 @@ function extractPragmas(pragmas: PragmaPseudoMapEntry[], range: CommentRange, te
 
 function addPragmaForMatch(pragmas: PragmaPseudoMapEntry[], range: CommentRange, kind: PragmaKindFlags, match: RegExpExecArray) {
     if (!match) return;
-    const name = match[1].toLowerCase() as keyof PragmaPseudoMap; // Technically unsafe cast, but we do it so they below check to make it safe typechecks
+    const name = match[1].toLowerCase() as KeyOfPragmaPseudoMap; // Technically unsafe cast, but we do it so they below check to make it safe typechecks
     const pragma = commentPragmas[name] as PragmaDefinition;
     if (!pragma || !(pragma.kind! & kind)) {
         return;
