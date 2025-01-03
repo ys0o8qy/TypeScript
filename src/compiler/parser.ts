@@ -236,6 +236,7 @@ import {
     JsxText,
     JsxTokenSyntaxKind,
     KeyOfPragmaPseudoMap,
+    KindOfForEachChildNodes,
     LabeledStatement,
     LanguageVariant,
     lastOrUndefined,
@@ -504,8 +505,9 @@ function isImportMeta(node: Node): boolean {
 }
 
 type ForEachChildFunction<TNode> = <T>(node: TNode, cbNode: (node: Node) => T | undefined, cbNodes?: (nodes: NodeArray<Node>) => T | undefined) => T | undefined;
-type ForEachChildTable = { [TNode in ForEachChildNodes as TNode["kind"]]: ForEachChildFunction<TNode>; };
-const forEachChildTable: ForEachChildTable = {
+// type ForEachChildTable = { [TNode in ForEachChildNodes as TNode["kind"]]: ForEachChildFunction<TNode>; };
+type ForEachChildTableV2 = Record<KindOfForEachChildNodes, ForEachChildFunction<any>>;
+const forEachChildTable: ForEachChildTableV2 = {
     [SyntaxKind.QualifiedName]: function forEachChildInQualifiedName<T>(node: QualifiedName, cbNode: (node: Node) => T | undefined, _cbNodes?: (nodes: NodeArray<Node>) => T | undefined): T | undefined {
         return visitNode(cbNode, node.left) ||
             visitNode(cbNode, node.right);

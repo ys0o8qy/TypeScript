@@ -1007,6 +1007,7 @@ export type HasFlowNode =
 // However, `forEachChild` currently processes JSDoc comment syntax and missing declarations more thoroughly.
 // On the other hand, `visitEachChild` actually processes `Identifier`s (which really *shouldn't* have children,
 // but are constructed as if they could for faked-up `QualifiedName`s in the language service.)
+export type KindOfForEachChildNodes = ForEachChildNodes["kind"]
 
 /** @internal */
 export type ForEachChildNodes =
