@@ -6050,7 +6050,10 @@ namespace Parser {
                     end,
                 );
 
-                children = createNodeArray([...children.slice(0, children.length - 1), newLast], children.pos, end);
+                const arr = children.slice(0, children.length - 1)
+                arr.push(newLast)
+
+                children = createNodeArray(arr, children.pos, end);
                 closingElement = lastChild.closingElement;
             }
             else {
