@@ -10162,6 +10162,24 @@ export type ConcretePragmaSpecs = typeof commentPragmas;
 export type PragmaPseudoMap = { [K in keyof ConcretePragmaSpecs]: { arguments: PragmaArgumentType<K>; range: CommentRange; }; };
 export type KeyOfPragmaPseudoMap = "reference" | "amd-dependency" | "amd-module" | "ts-check" | "ts-nocheck" | "jsx" | "jsxfrag" | "jsximportsource" | "jsxruntime";
 
+export type PragmaPseudoMapReferenceInner = {
+        value: string;
+        pos: number;
+        end: number;
+}
+
+export type PragmaPseudoMapReference = { 
+    arguments: {
+        types?: PragmaPseudoMapReferenceInner
+        lib?: PragmaPseudoMapReferenceInner
+        path?: PragmaPseudoMapReferenceInner
+        ["no-default-lib"]?: string;
+        ["resolution-mode"]?: string;
+        preserve?: string;
+    }; 
+    range: CommentRange; 
+}
+
 export type PragmaPseudoMapValue<K extends keyof PragmaPseudoMap> = { arguments: PragmaArgumentType<K>; range: CommentRange; }
 
 /** @internal */

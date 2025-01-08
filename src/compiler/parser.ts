@@ -306,6 +306,7 @@ import {
     PragmaMap,
     PragmaPseudoMap,
     PragmaPseudoMapEntry,
+    PragmaPseudoMapReference,
     PragmaPseudoMapValue,
     PrefixUnaryExpression,
     PrefixUnaryOperator,
@@ -10588,7 +10589,7 @@ export function processPragmasIntoFields(context: PragmaContext, reportDiagnosti
                 const referencedFiles = context.referencedFiles;
                 const typeReferenceDirectives = context.typeReferenceDirectives;
                 const libReferenceDirectives = context.libReferenceDirectives;
-                forEach(toArray(entryOrList) as PragmaPseudoMap["reference"][], arg => {
+                forEach(toArray(entryOrList) as PragmaPseudoMapReference[], arg => {
                     const { types, lib, path, ["resolution-mode"]: res, preserve: _preserve } = arg.arguments;
                     const preserve = _preserve === "true" ? true : undefined;
                     if (arg.arguments["no-default-lib"] === "true") {
